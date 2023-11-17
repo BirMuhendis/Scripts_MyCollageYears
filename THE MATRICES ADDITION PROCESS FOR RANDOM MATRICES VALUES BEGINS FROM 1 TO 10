@@ -1,0 +1,38 @@
+import java.util.*;
+public class aaa {
+						// MATRICES ADDITION PROCESS:
+	public static void main(String[] args) {
+		Random rn= new Random();
+		int matrices1[][]= new int [3][3];
+		int matrices2[][]= new int [3][3];
+		System.out.println("m1=");
+		for(int x=0 ;x < 3 ;x++) {
+			for(int y=0 ; y<3 ;y++) {
+				matrices1[x][y]=rn.nextInt(9)+1;
+				System.out.print(matrices1[x][y] + " ");
+
+			}
+			System.out.println();
+		}
+		System.out.println();
+		System.out.println("m2=");
+		for(int x=0 ;x < 3 ;x++) {
+			for(int y=0 ; y<3 ;y++) {
+				matrices2[x][y]=rn.nextInt(9)+1;
+				System.out.print(matrices2[x][y] + " ");
+
+			}
+			System.out.println();
+		}
+		System.out.println();
+		System.out.println("m_total=");
+		int matrices_total[][]= new int [3][3];
+		for(int a = 0 ; a < 3 ;a++ ) {
+			for(int b=0 ;b<3 ;b++) {
+			matrices_total[a][b]= matrices1[a][b]+matrices2[a][b];
+			System.out.print(matrices_total[a][b] + " ");
+			}
+			System.out.println();
+		}
+	}
+}
