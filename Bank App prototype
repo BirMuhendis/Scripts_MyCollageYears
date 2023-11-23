@@ -1,0 +1,180 @@
+import java.util.*;
+
+public class BankApp {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1-Deposit Money");
+		System.out.println("2-Draw Money");
+		System.out.println("3-Send Money");
+		System.out.println("4-Mobile Stock Market");
+		int command = sc.nextInt();
+		Random rndm = new Random();
+		int wallet = rndm.nextInt(8000);
+		if(command <= 0 || command >=0) {
+		switch(command){
+			case 1:
+				System.out.println("Please Enter Your Wanted Value of The Deposit.");
+				int wantedValue1 = sc.nextInt();
+				System.out.println("Your Money: "+ wallet);
+				System.out.println("Your Total Money: " + (wallet+wantedValue1));
+				break;
+			case 2:
+				System.out.println("Please Enter Your Wanted Value of The Draw.");
+				int wantedValue2 = sc.nextInt();
+				System.out.println("Your Money: "+ wallet);
+				if(wantedValue2 >= wallet) {
+					System.out.println("Your Total Money: " + (wallet-wantedValue2));}
+				else
+					{System.out.println("You Have Not Enough Money.");}
+				break;
+			case 3:
+				System.out.println("Please Enter Your Wanted Value of Send.");
+				int wantedValue3 = sc.nextInt();
+				System.out.println("Please Enter Yout Wanted IBAN Country Code.");
+				String wanted_iban = sc.next();
+				System.out.println("Please Enter Yout Wanted IBAN numbers.");
+				long wanted_iban_V = sc.nextLong();
+				System.out.println("Please Enter Name and Surname of IBAN Owner.");
+				String IBAN_Owner = sc.next();
+				String IBAN_Owner_Surname = sc.next();
+				if(wallet >= wantedValue3 ) {
+					System.out.println("Sended IBAN's Owner: " + IBAN_Owner + " " + IBAN_Owner_Surname);
+				System.out.println("Sent IBAN: " + wanted_iban + " " + wanted_iban_V );
+				System.out.println("You Sent " + wantedValue3 + "$");
+				System.out.println("Your Money Before to Sent: " + wallet);
+				System.out.println("Your Total Money: " + (wallet-wantedValue3));}
+				else
+				{System.out.println("You Have Not Enough Money.");}
+				break;
+			case 4:
+				System.out.println("Welcome Today"); System.out.println("Your Money: "+ wallet);
+				System.out.println("For Your Best Optionel Company Stocks:"); System.out.println("Please Enter Your Wanted Company's Line Value.");
+				System.out.println("1-TLC; Per LOT: 10$"); System.out.println("2-AMAZON; Per LOT: 20$");
+				System.out.println("3-APPLE; Per LOT: 30$"); System.out.println("4-MICROSOFT; Per LOT: 40$");
+				int lotChooser = sc.nextInt();
+				if(lotChooser == 1){
+				if(wallet==10) {
+					System.out.println("Lot Value You can Get: 1 ");System.out.println("Do You Want to Continue?");
+					System.out.println("Yes, No");
+					String yn = sc.next();
+					switch(yn) {
+					case "yes":
+						System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: 1 and Your Money : 0");
+						break;
+					case "no":
+						System.out.println("Your Process is not Completed.");
+						break;
+					}
+				}
+				if (wallet > 10) {
+					System.out.println("Lot Value You can Get: " + (int)(wallet/10));
+					System.out.println("How Many You Want TLC Lot?");
+					int lotValueTLC= sc.nextInt();System.out.println("Do You Want to Continue?");
+					System.out.println("Yes, No");
+					String yn = sc.next();
+					switch(yn) {
+					case "yes":
+						System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: "+ lotValueTLC + " and Your Money : " + (wallet-lotValueTLC*10));
+						break;
+					case "no":
+						System.out.println("Your Process is not Completed.");
+						break;
+				}
+				}
+				else {System.out.println("Your Process is not Completed.");}
+				break;
+		}
+				if (lotChooser== 2) {
+					if(wallet== 20) {
+						System.out.println("Lot Value You can Get: 1");System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: 1 and Your Money : 0");
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					if (wallet > 20) {
+						System.out.println("Lot Value You can Get: " + (int)(wallet/20));
+						System.out.println("How Many You Want AMAZON Lot?");
+						int LotValueAmazon= sc.nextInt();System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: "+ LotValueAmazon + " and Your Money : " + (wallet-LotValueAmazon*20));
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					else{System.out.println("You Have Not Enough Money.");}
+				}
+				if(lotChooser == 3) {
+					if(wallet== 30) {
+						System.out.println("Lot Value You can Get: 1");System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: 1 and Your Money : 0");
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					if (wallet > 30) {
+						System.out.println("Lot Value You can Get: " + (int)(wallet/30));
+						System.out.println("How Many You Want Apple Lot?");
+						int LotValueApple= sc.nextInt();System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: "+ LotValueApple + " and Your Money : " + (wallet-LotValueApple*30));
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					else{System.out.println("You Have Not Enough Money.");}
+				}
+				if(lotChooser == 4) {
+					if(wallet== 40) {
+						System.out.println("Lot Value You can Get: 1");System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: 1 and Your Money : 0");
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					if (wallet > 40) {
+						System.out.println("Lot Value You can Get: " + (int)(wallet/40));
+						System.out.println("How Many You Want Microsoft Lot?");
+						int LotValueMicrosoft= sc.nextInt();System.out.println("Do You Want to Continue?");
+						System.out.println("Yes, No");
+						String yn = sc.next();
+						switch(yn) {
+						case "yes":
+							System.out.println("Your Process is Completed."); System.out.println("Your Lot Value: "+ LotValueMicrosoft + " and Your Money : " + (wallet-LotValueMicrosoft*40));
+							break;
+						case "no":
+							System.out.println("Your Process is not Completed.");
+							break;}
+					}
+					else{System.out.println("You Have Not Enough Money.");}
+				}
+				default:
+					System.out.println("You Entered Invalid Value. ");
+		}
+		}
+		}
+}
