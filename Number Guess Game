@@ -1,0 +1,335 @@
+import java.util.*;
+
+public class numberGuess {
+	static Random rn = new Random();
+	static Scanner sc = new Scanner(System.in);
+	static String a = null;
+	static int randomvalue;
+	// random sayıyı fonk yap ve revize et.
+	
+	//RANDOM VALUE GIVER
+	
+	static int randomgiver(int x,int lvl1,int lvl2,int lvl3,int lvl4) {
+		if(lvl1==1) {x = rn.nextInt(99) + 1;
+		System.out.println(x);}
+		if(lvl2==1) {x = rn.nextInt(999) + 1;
+		System.out.println(x);}
+		if(lvl3==1) {x = rn.nextInt(9999) + 1;
+		System.out.println(x);}
+		if(lvl4==1) {x = rn.nextInt(99999) + 1;
+		System.out.println(x);}
+		return x;
+	}
+
+	// PRIME NUMBER'S SUM FINDER
+
+	static void primecal(int x) {
+		x = x + 0;
+		int sum = 0;
+		for (int i = 2; i <= x; i++) {
+			while (x % i == 0) {
+				sum += i;
+				x /= i;
+			}
+		}
+		System.out.println("Sum of the prime numbers: " + sum);
+	}
+	// LIVES COUNTER
+
+	static void livescounter(int b) {
+		if (b == 1) {
+			a = "YOUR QUESTION LIVES: 1";
+		}
+		if (b == 2) {
+			a = "YOUR QUESTION LIVES: 0";
+		}
+		System.out.println(a);
+		System.out.println();
+	}
+
+	// NUMBER DIGIT'S FINDER
+
+	static void digitfin(int y) {
+		y = y + 0;
+		int counter = 0;
+		while (y > 0) {
+			y /= 10;
+			counter++;
+		}
+		System.out.println("Digit number of your number: " + counter);
+	}
+
+	// NUMBER REPLEACER
+
+	static void numberrep(int z, int lvl) {
+		// level 1
+		if (z < 100 && z > 0 && lvl == 1)
+		{
+			System.out.println("Range of the number:");
+			System.out.println((z - 50) + " < " + "your number" + " < " + (z + 50));
+		}
+		// level 2
+		if (z < 1000 && z > 100 && lvl == 2)
+		{
+			System.out.println("Range of the number:");
+			System.out.println((z - 115) + " < " + "your number" + " < " + (z + 115));
+		}
+		// level 3
+		if (z < 10000 && z > 1000 && lvl == 3)
+		{
+			System.out.println("Range of the number:");
+			System.out.println((z - 275) + " < " + "your number" + " < " + (z + 275));
+		}
+		// level 4
+		if (z < 100000 && z > 10000 && lvl == 4)
+		{
+			System.out.println("Range of the number:");
+			System.out.println((z - 401) + " < " + "your number" + " < " + (z + 401));
+		}
+	}
+
+	public static void main(String[] args) {
+		String questopt;
+		int randomgiver;
+		int questionslives = 0;
+		int levels =0;
+		System.out.println("WELCOME THE NUMBER FINDER.");
+		System.out.println("Please press + for the start.");
+		String startcom = sc.next();
+		System.out.println("*******************************************************************");
+		switch (startcom) {
+		// default :
+		// do {
+		// System.out.println("Yanlış Tus");
+		// }
+		// while(startcom == "+");
+		// return;
+		case "+":
+
+			System.out.println("Choose the game level.");
+			System.out.println("1- LEVEL 1"); // LEVEL 1= 100
+			System.out.println("2- LEVEL 2"); // LEVEL 2= 1000
+			System.out.println("3- LEVEL 3"); // LEVEL 3= 10000
+			System.out.println("4- LEVEL 4"); // LEVEL 4= 100000
+			do {
+				levels = sc.nextInt();
+				System.out.println("*******************************************************************");
+				switch (levels) {
+
+				// LEVEL 1
+
+				case 1:
+
+					randomvalue= randomgiver(randomvalue,1,0,0,0);
+					System.out.println("*******************************************************************");
+					System.out.println("YOUR NUMBER WAS CHOOSED.");
+					System.out.println("Please press the determined numbers for reach questions.");
+					System.out.print("		");
+					System.out.println("You have 2 question lives totally.");
+					do {
+						System.out.println("*******************************************************************");
+						System.out.println("1- Number replacement between 2 values.");
+						System.out.println("2- The sum of the number's prime numbers.");
+						System.out.println("3- Number's digit values giver.");
+						System.out.println("4- Cheat.");
+						questopt = sc.next();
+						switch (questopt) {
+						case "1":
+							
+							questionslives++;
+							numberrep(randomvalue, 1);
+							livescounter(questionslives);
+							break;
+							
+						case "2":
+							
+							questionslives++;
+							primecal(randomvalue);
+							livescounter(questionslives);
+							break;
+							
+						case "3":
+							questionslives++;
+							digitfin(randomvalue);
+							livescounter(questionslives);
+							break;
+							
+						case "4":
+							
+							questionslives++;
+							System.out.println("Answer to the cry babies:");
+							System.out.println("LOOOOSEEEEERRRRRR.");
+							System.out.println(randomvalue);
+							livescounter(questionslives);
+							break;
+							
+						default:
+							System.out.println("YOU ENTERED WRONG VALUE.");
+						}
+					} while (questionslives < 2);
+					System.out.println("*******************************************************************");
+					break;
+					
+				// LEVEL 2
+					
+				case 2:
+					
+					randomvalue= randomgiver(randomvalue,0,1,0,0);
+					System.out.println("*******************************************************************");
+					System.out.println("YOUR NUMBER WAS CHOOSED.");
+					System.out.println("Please press the determined numbers reach questions.");
+					System.out.print("		");
+					System.out.println("You have 2 question lives totally.");
+					do {
+						System.out.println("*******************************************************************");
+						System.out.println("1- Number replacement between 2 values.");
+						System.out.println("2- The sum of the number's prime numbers.");
+						System.out.println("3- Number's digit values giver.");
+						System.out.println("4- Cheat.");
+						questopt = sc.next();
+						switch (questopt) {
+						case "1":
+							questionslives++;
+							numberrep(randomvalue, 2);
+							livescounter(questionslives);
+							break;
+						case "2":
+							questionslives++;							
+							primecal(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "3":
+							questionslives++;
+							digitfin(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "4":
+							questionslives++;
+							System.out.println("Answer to the cry babies:");
+							System.out.println("LOOOOSEEEEERRRRRR.");
+							System.out.println(randomvalue);
+							livescounter(questionslives);
+							break;
+						}
+					} while (questionslives < 2);
+					System.out.println("*******************************************************************");
+					break;
+					
+				// LEVEL 3
+					
+				case 3:
+					randomvalue= randomgiver(randomvalue,0,0,1,0);
+					System.out.println("*******************************************************************");
+					System.out.println("YOUR NUMBER WAS CHOOSED.");
+					System.out.println("Please press the determined numbers for reach questions.");
+					System.out.print("		");
+					System.out.println("You have 2 question lives totally.");
+					do {
+						System.out.println("*******************************************************************");
+						System.out.println("1- Number replacement between 2 values.");
+						System.out.println("2- The sum of the number's prime numbers.");
+						System.out.println("3- Number's digit values giver.");
+						System.out.println("4- Cheat.");
+						questopt = sc.next();
+						switch (questopt) {
+						case "1":
+							questionslives++;
+							numberrep(randomvalue, 3);
+							livescounter(questionslives);
+							break;
+						case "2":
+							questionslives++;
+							primecal(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "3":
+							questionslives++;
+							digitfin(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "4":
+							questionslives++;
+							System.out.println("Answer to the cry babies:");
+							System.out.println("LOOOOSEEEEERRRRRR.");
+							System.out.println(randomvalue);
+							livescounter(questionslives);
+							break;
+						}
+					} while (questionslives < 2);
+					System.out.println("*******************************************************************");
+					break;
+					
+				// LEVEL 4
+					
+				case 4:
+					randomvalue= randomgiver(randomvalue,0,0,0,1);
+					System.out.println("*******************************************************************");
+					System.out.println("YOUR NUMBER WAS CHOOSED.");
+					System.out.println("Please press the determined numbers for reach questions.");
+					System.out.print("		");
+					System.out.println("You have 2 question lives totally.");
+					do {
+						System.out.println("*******************************************************************");
+						System.out.println("1- Number replacement between 2 values.");
+						System.out.println("2- The sum of the number's prime numbers.");
+						System.out.println("3- Number's digit values giver.");
+						System.out.println("4- Cheat.");
+						questopt = sc.next();
+						switch (questopt) {
+						case "1":
+							questionslives++;
+							numberrep(randomvalue, 4);
+							livescounter(questionslives);
+							break;
+						case "2":
+							questionslives++;
+							primecal(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "3":
+							questionslives++;
+							digitfin(randomvalue);
+							livescounter(questionslives);
+							break;
+						case "4":
+							questionslives++;
+							System.out.println("Answer to the cry babies:");
+							System.out.println("LOOOOSEEEEERRRRRR.");
+							System.out.println(randomvalue);
+							livescounter(questionslives);
+							break;
+						}
+					} while (questionslives < 2);
+					System.out.println("*******************************************************************");
+					break;
+				default:
+					levels++;
+					System.out.println("THIS LEVEL DOES NOT EXIST IN THIS VERSION.");
+					System.out.println("PLEASE ENTER GIVEN VALUES IN THE LIST..");
+				}
+			} while (levels > 1 || levels > 2 || levels > 3 || levels > 4);
+			break;
+		}
+		int answers;
+		questionslives=0;
+		System.out.println("Press - for the give answer.");
+		startcom=sc.next();
+		System.out.println("*******************************************************************");
+		System.out.println("You have 2 lives for the give answer.");
+		do {
+			answers=sc.nextInt();
+			questionslives++;
+			livescounter(questionslives);
+			if(answers==randomvalue) {
+				System.out.println("CONGRATULATIONS!!!!!!!");
+				System.out.println("YOU WIN!!!!!!");
+			}
+			else {System.out.println("Unfortunately");
+			}
+		}
+		while(questionslives < 2);
+		if(questionslives==2) {
+			System.out.println("TRY AGAIN");	
+		}
+	}
+}
