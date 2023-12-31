@@ -98,14 +98,7 @@ public class numberGuess {
 		String startcom = sc.next();
 		System.out.println("*******************************************************************");
 		switch (startcom) {
-		// default :
-		// do {
-		// System.out.println("Yanlış Tus");
-		// }
-		// while(startcom == "+");
-		// return;
 		case "+":
-
 			System.out.println("Choose the game level.");
 			System.out.println("1- LEVEL 1"); // LEVEL 1= 100
 			System.out.println("2- LEVEL 2"); // LEVEL 2= 1000
