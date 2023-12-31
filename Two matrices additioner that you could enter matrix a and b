@@ -1,0 +1,53 @@
+import java.util.*;
+public class matricesAddition {
+	static Scanner sc= new Scanner(System.in);
+	static Random rn = new Random();
+	static int row ;
+	static int column;
+//	MATRIX MAKER
+		static void MatrixMaker(int matrixX[][],char a) {
+			System.out.println("*********************");
+			System.out.println("MATRİX "+ a + ":");
+			System.out.println("Please Enter Matrix's values");
+			System.out.println("Amount to enter " + row + " x " + column + "= " + (row*column));
+			for(int y=0;y<column;y++) {
+				for(int x=0;x<row;x++) {
+					matrixX[x][y]=sc.nextInt();
+					System.out.println(x+ ". " + "value= " + (matrixX[x][y]) );
+					System.out.println("*************");
+					System.out.print(matrixX[x][y] + " ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+		
+//	MATRIX ADDITIONER
+		static void matristoplayıcı(int matrixX1[][],int matrixX2[][],int total[][]) {
+			System.out.println("*********************");
+			System.out.println("MATRİX TOTAL: ");
+			for(int y=0 ; y<column ; y++) {
+				for(int x=0 ; x<row ; x++) {
+					total[x][y]= matrixX1[x][y] + matrixX2[x][y] ;
+					System.out.print(total[x][y] + " ");
+				}
+				System.out.println();
+			}
+		}
+	public static void main(String[] args) {
+		System.out.println("Please enter wanted row value ");
+		row=sc.nextInt();
+		System.out.println("Please enter wanted column value ");
+		column=sc.nextInt();
+		int matrixA[][]= new int [row][column];
+		int matrixB[][]= new int [row][column];
+		int total [][]= new int [row][column];
+//		MATRIX A
+		MatrixMaker(matrixA, 'A');
+//		MATRIX B
+		MatrixMaker(matrixB, 'B');
+		
+//		MATRIX TOTAL
+		matristoplayıcı(matrixA,matrixB,total );
+	}
+}
