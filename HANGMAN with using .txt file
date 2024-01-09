@@ -53,17 +53,35 @@ public class adamasmacavol2 {
 			char tahmin = sc.next().charAt(0);
 			int hakcontrol = 0;
 			for (int i = 0; i < arrkelime.length; i++) {
-				if (tahmin == arrkelime[i] && repo[i] != 1) {
+				if (Character.toUpperCase(tahmin) == Character.toUpperCase(arrkelime[i]) && Character.toLowerCase(tahmin) == Character.toLowerCase(arrkelime[i]) && repo[i] != 1) {
 					hakcontrol++;
 					finaldurum++;
 				}
-				if (Character.toUpperCase(tahmin) == Character.toUpperCase(arrkelime[i])|| Character.toLowerCase(tahmin) == Character.toLowerCase(arrkelime[i]) || repo[i] == 1) {System.out.print(Character.toUpperCase(arrkelime[i]));
+				if (Character.toUpperCase(tahmin) == Character.toUpperCase(arrkelime[i]) || Character.toLowerCase(tahmin) == Character.toLowerCase(arrkelime[i]) || repo[i] == 1) {System.out.print(Character.toUpperCase(arrkelime[i]));
 					repo[i] = 1;
 				} else {
 					System.out.print("_");
 				}
 			}
 			System.out.println();
+			 if (hakcontrol == 0) {
+	                hak--;
+	                System.out.println("YANLIS TAHMIN " + hak + " HAKKINIZ KALDI");
+	         } else {
+	                System.out.println("DOGRU TAHMIN! " + hak + " HAKKINIZ KALDI");
+	           }	
+			 if(finaldurum==arrkelime.length) {System.out.println(); System.out.println("KAZANDIN LOOO");
+				break;}
+			 if(hak<3) {System.out.println("------"); System.out.println("  |");System.out.println("  |");}
+			 if(hak<=2) {System.out.println("  O");}
+			 if(hak<=1) {System.out.print(" /"); System.out.print("|");System.out.println("\\"); System.out.println("  |");
+			 if(hak<=0) {System.out.print(" /");System.out.println(" \\");}
+			 }
+		} while (hak > 0);
+		 	 if(hak==0) {System.out.println(); System.out.println("LOOO Adam Öldüüüü");
+		 }
+	}
+}
 TDK.DIL.LIST.txt:
 a
 a
