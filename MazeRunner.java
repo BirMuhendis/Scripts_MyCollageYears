@@ -28,7 +28,7 @@ public class MazeRunner
 		}
 		if (movementkey == 'A')
 		{
-			if(col>1 && arr[row][col-1]!='#'){
+			if(col>0 && arr[row][col-1]!='#'){
 			temp = arr[row][col];
 			arr[row][col] = arr[row][col - 1];
 			arr[row][col - 1] = temp;
@@ -53,46 +53,26 @@ public class MazeRunner
 	}
 	static void checker(char movementkey,char arr[][],int flag)
 	{
-		flag=0;		char temp='X';
-		int row = 0;	int col = 0;
+		flag=0;
+		int row=0;	int col=0;
+		// FOR PLAYER LOCATION
 		for (int i = 0; i < arr.length; i++)
 		{
 			for (int j = 0; j < arr[0].length; j++)
 			{
 				if (arr[i][j] == '0')
 				{
-					row = i;	col = j;
+					row = i;
+					col = j;
 					break;
 				}
 			}
 		}
-		if (movementkey == 'W' )
+		if((arr[row+1][col]=='X' || arr[row-1][col]=='X' || arr[row][col+1]=='X' || arr[row][col-1]=='X') ||
+		(arr[row+1][col]=='X' || arr[row-1][col]=='X' || arr[row][col+1]=='X' || arr[row][col-1]=='X'))
 		{
-				temp = arr[row][col];
-				arr[row][col] = arr[row-1][col];
-				arr[row-1][col] = temp;
-		}
-		if (movementkey == 'A')
-		{
-			temp = arr[row][col];
-			arr[row][col] = arr[row][col - 1];
-			arr[row][col - 1] = temp;
-		}
-		if (movementkey == 'S')
-		{
-			temp = arr[row][col];
-			arr[row][col] = arr[row + 1][col];
-			arr[row+1][col] = temp;
-		}
-		if (movementkey == 'D' )
-		{
-			for (int i = 0; i < arr.length; i++) {
-				for (int j = 0; j < arr[0].length; j++) {
-					temp = arr[i][j];
-					arr[i][j] = arr[i][j+1];
-					arr[j][j+1] = temp;
-				}
-			}
+			flag++;
+			System.out.println("Congratulations,You find the exit!");
 		}
 	}
 	static Scanner sc = new Scanner(System.in);
@@ -110,28 +90,38 @@ public class MazeRunner
 				{ '#', '#', '#', '#', '#', '#', '#', '#', ' ', '#' },
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#' },
 				{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
-				{ '#', '#', '#', '#', '#', '#', '#', '#', 'X', '#' }
+				{ '#', '#', 'X', '#', '#', '#', '#', '#', '#', '#' }
 				};
 				System.out.println();
-		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[0].length; j++) {
+		for (int i = 0; i < maze.length; i++)
+		{
+			for (int j = 0; j < maze[0].length; j++)
+			{
 				System.out.print(maze[i][j] + " ");
 			}
 			System.out.println();
 		}
 		do {
+			System.out.println("W-UP");
+			System.out.println("A-LEFT");
+			System.out.println("S-DOWN");
+			System.out.println("D-RIGHT");
 			char movementkey = sc.next().toLowerCase().toUpperCase().charAt(0);
 			moveMazer(movementkey, maze);
-			//checker(maze);
 			counter++;
-			for (int i = 0; i < maze.length; i++) {
-				for (int j = 0; j < maze[0].length; j++) {
+			for (int i = 0; i < maze.length; i++)
+			{
+				for (int j = 0; j < maze[0].length; j++)
+				{
 					System.out.print(maze[i][j] + " ");
 				}
 				System.out.println();
 			}
 			System.out.println();
+			checker(movementkey,maze,flag);
+			System.out.println("counter: "+ counter);
 		} while (flag==0);
-		System.out.println("counter: "+ counter);
+		
+		
 	}
 }
