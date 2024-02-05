@@ -1,8 +1,11 @@
+import java.util.Random;
 import java.util.Scanner;
 // arr.length = 11(row)
 // arr[0].lenght = 10(col)
 public class MazeRunner
 {
+    static Scanner sc = new Scanner(System.in);
+    static Random rn= new Random();
 	static void moveMazer(char movementkey, char arr[][])
 	{
 		char temp = 'x';	int row = 0;	int col = 0;
@@ -20,7 +23,7 @@ public class MazeRunner
 		}
 		if (movementkey == 'W' )
 		{
-			if(row>1 && arr[row-1][col]!='#'){
+			if(row>1 && arr[row-1][col]!='*'){
 				temp = arr[row][col];
 				arr[row][col] = arr[row-1][col];
 				arr[row-1][col] = temp;
@@ -28,7 +31,7 @@ public class MazeRunner
 		}
 		if (movementkey == 'A')
 		{
-			if(col>0 && arr[row][col-1]!='#'){
+			if(col>0 && arr[row][col-1]!='*'){
 			temp = arr[row][col];
 			arr[row][col] = arr[row][col - 1];
 			arr[row][col - 1] = temp;
@@ -36,7 +39,7 @@ public class MazeRunner
 		}
 		if (movementkey == 'S')
 		{
-			if(row<arr.length-1 && arr[row+1][col]!='#'){
+			if(row<arr.length-1 && arr[row+1][col]!='*'){
 			temp = arr[row][col];
 			arr[row][col] = arr[row + 1][col];
 			arr[row+1][col] = temp;
@@ -44,7 +47,7 @@ public class MazeRunner
 		}
 		if (movementkey == 'D' )
 		{
-			if(col<arr[0].length-2 && arr[row][col+1]!='#'){
+			if(col<arr[0].length-2 && arr[row][col+1]!='*'){
 			temp = arr[row][col];
 			arr[row][col] = arr[row][col + 1];
 			arr[row][col + 1] = temp;
@@ -75,24 +78,43 @@ public class MazeRunner
 			System.out.println("Congratulations,You find the exit!");
 		}
 	}
-	static Scanner sc = new Scanner(System.in);
-
+	static void MazerMaker(char arr[][])
+	{
+		int a=rn.nextInt(1,10);
+		int b=rn.nextInt(1,10);
+		for (int i = 0; i < 11; i++) 
+		{
+			int locationRandom1=rn.nextInt(1,10);
+			int locationRandom2=rn.nextInt(1,10);
+			for (int j = 0; j < 10; j++) 
+			{
+				if (i == 0 || i == 10 || j == 0 || j == 9) 
+				{
+					arr[i][j] = '#';
+				} 
+				else {arr[i][j] = ' ';}
+				if((arr[a][1]!='*' )||(arr[1][b]!='*'))
+				{
+					arr[a][0]='0';	arr[0][b]='X';
+				}
+				else{a=rn.nextInt(1,11); b=rn.nextInt(1,11);}
+				if(a<6 && arr[i][j]==' ' && arr[i][j]!='#')
+				{
+					arr[locationRandom1][locationRandom2]='*';
+				}
+				else if(a>5 && a<10 && arr[i][j]==' ' && arr[i][j]!='#')
+				{
+					arr[locationRandom1][locationRandom2]='*';
+				}
+			}
+		}
+	}
 	public static void main(String[] args) {
 		int flag=0;		int counter=0;
-		char[][] maze = {
-				{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-				{ '0', ' ', '#', ' ', '#', ' ', '#', ' ', ' ', '#' },
-				{ '#', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', '#' },
-				{ '#', ' ', '#', ' ', '#', ' ', '#', ' ', '#', '#' },
-				{ '#', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', '#' },
-				{ '#', ' ', '#', ' ', '#', '#', '#', '#', ' ', '#' },
-				{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
-				{ '#', '#', '#', '#', '#', '#', '#', '#', ' ', '#' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#' },
-				{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
-				{ '#', '#', 'X', '#', '#', '#', '#', '#', '#', '#' }
-				};
-				System.out.println();
+		// first arr 11x10
+		char[][] maze = new char[11][10];
+		MazerMaker(maze);
+		System.out.println();
 		for (int i = 0; i < maze.length; i++)
 		{
 			for (int j = 0; j < maze[0].length; j++)
