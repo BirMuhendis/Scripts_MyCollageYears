@@ -88,7 +88,7 @@ public class MazeRunner
 			int locationRandom2=rn.nextInt(1,10);
 			for (int j = 0; j < 10; j++) 
 			{
-				if (i == 0 || i == 10 || j == 0 || j == 9) 
+				if (i == 0 || i == arr.length-1 || j == 0 || j == arr[0].length-1) 
 				{
 					arr[i][j] = '#';
 				} 
@@ -96,15 +96,16 @@ public class MazeRunner
 				if((arr[a][1]!='*' )||(arr[1][b]!='*'))
 				{
 					arr[a][0]='0';	arr[0][b]='X';
+					if(arr[0][b]=='X')arr[1][b]=' ';
+					if(arr[a][0]=='0')arr[a][1]=' ';
 				}
-				else{a=rn.nextInt(1,11); b=rn.nextInt(1,11);}
 				if(a<6 && arr[i][j]==' ' && arr[i][j]!='#')
 				{
-					arr[locationRandom1][locationRandom2]='*';
+					if(i!=arr.length-1 && j!=arr[0].length-1)arr[locationRandom1][i]='*';
 				}
-				else if(a>5 && a<10 && arr[i][j]==' ' && arr[i][j]!='#')
+				if(a>5 && a<10 && arr[i][j]==' ' && arr[i][j]!='#')
 				{
-					arr[locationRandom1][locationRandom2]='*';
+					if(i!=arr.length-1 && j!=arr[0].length-1)arr[j][locationRandom2]='*';
 				}
 			}
 		}
@@ -112,7 +113,19 @@ public class MazeRunner
 	public static void main(String[] args) {
 		int flag=0;		int counter=0;
 		// first arr 11x10
-		char[][] maze = new char[11][10];
+		char[][] maze = {
+			{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
+			{ '0', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', '#' },
+			{ '#', ' ', '*', ' ', ' ', ' ', '*', ' ', ' ', '#' },
+			{ '#', ' ', '*', ' ', '*', ' ', '*', ' ', '*', '#' },
+			{ '#', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', '#' },
+			{ '#', ' ', '*', ' ', '*', '*', '*', '*', ' ', '#' },
+			{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+			{ '#', '*', '*', '*', '*', '*', '*', '*', ' ', '#' },
+			{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', '#' },
+			{ '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+			{ '#', '#', 'X', '#', '#', '#', '#', '#', '#', '#' }
+			};
 		MazerMaker(maze);
 		System.out.println();
 		for (int i = 0; i < maze.length; i++)
@@ -124,10 +137,8 @@ public class MazeRunner
 			System.out.println();
 		}
 		do {
-			System.out.println("W-UP");
-			System.out.println("A-LEFT");
-			System.out.println("S-DOWN");
-			System.out.println("D-RIGHT");
+			System.out.println("W-UP");	System.out.println("A-LEFT");
+			System.out.println("S-DOWN");	System.out.println("D-RIGHT");
 			char movementkey = sc.next().toLowerCase().toUpperCase().charAt(0);
 			moveMazer(movementkey, maze);
 			counter++;
@@ -143,7 +154,5 @@ public class MazeRunner
 			checker(movementkey,maze,flag);
 			System.out.println("counter: "+ counter);
 		} while (flag==0);
-		
-		
 	}
 }
