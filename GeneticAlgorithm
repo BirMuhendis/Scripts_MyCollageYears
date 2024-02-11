@@ -1,0 +1,97 @@
+import java.util.*;
+
+public class geneticalgorithm {
+    static Random rn = new Random();
+    static final char[] TURKISH_ALPHABET = {'a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'ğ', 'h', 'ı', 'i', 'j', 'k', 'l', 'm',
+                               'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'y', 'z',
+                               'A', 'B', 'C', 'Ç', 'D', 'E', 'F', 'G', 'Ğ', 'H', 'I', 'İ', 'J', 'K', 'L', 'M',
+                               'N', 'O', 'Ö', 'P', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V', 'Y', 'Z'};
+
+    public static int healthMeter(char[] gen1) {
+        int counter=0;
+        if(gen1[0]=='K')    counter++;
+        if(gen1[1]=='a')    counter++;
+        if(gen1[2]=='l')    counter++;
+        if(gen1[3]=='e')    counter++;
+        if(gen1[4]=='m')    counter++;
+        System.out.println("Health: "+counter);
+        return counter;
+    }
+
+    public static char[] mating(char[] parent1, char[] parent2, char[] parent3) {
+        char[] child = new char[parent1.length];
+        for (int i = 0; i < parent1.length; i++) {
+            // %33 ihtimalle birinci ebeveynden, %33 ihtimalle ikinci, %33 ihtimalle üçüncü ebeveynden gen al
+            int randomParent = rn.nextInt(3);
+            if (randomParent == 0) {
+                child[i] = parent1[i];
+            } else if (randomParent == 1) {
+                child[i] = parent2[i];
+            } else {
+                child[i] = parent3[i];
+            }
+        }
+        // %10 ihtimalle mutasyon 
+        if (rn.nextInt(10) == 0) {
+            int mutationIndex = rn.nextInt(child.length);
+            child[mutationIndex] = TURKISH_ALPHABET[rn.nextInt(TURKISH_ALPHABET.length)];
+        }
+        // %50 ihtimalle mutasyon
+        else if(rn.nextInt(0,10) < 5) {
+            int mutationIndex = rn.nextInt(child.length);
+            child[mutationIndex] = TURKISH_ALPHABET[rn.nextInt(TURKISH_ALPHABET.length)];
+        }
+        return child;
+    }
+
+    public static char[][] createInitialGeneration(int populationSize, int geneLength) {
+        char[][] initialGeneration = new char[populationSize][geneLength];
+        for (int i = 0; i < populationSize; i++) {
+            for (int j = 0; j < geneLength; j++) {
+                initialGeneration[i][j] = TURKISH_ALPHABET[rn.nextInt(TURKISH_ALPHABET.length)];
+            }
+        }
+        return initialGeneration;
+    }
+
+    public static void main(String[] args) {
+        int populationSize = 5;
+        int geneLength = 5;
+        char[][] currentGeneration = createInitialGeneration(populationSize, geneLength);
+        int generationCount = 1;
+
+        do {
+            System.out.println("Generation " + generationCount);
+            // Sağlık ölçümü ve bireylerin sıralanması
+            Map<char[], Integer> healthScores = new HashMap<>();
+            for (char[] individual : currentGeneration) {
+                healthScores.put(individual, healthMeter(individual));
+            }
+            List<Map.Entry<char[], Integer>> sortedHealthScores = new ArrayList<>(healthScores.entrySet());
+            sortedHealthScores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+            // En sağlıklı bireylerin seçilmesi
+            char[] parent1 = sortedHealthScores.get(0).getKey();
+            char[] parent2 = sortedHealthScores.get(1).getKey();
+            char[] parent3 = sortedHealthScores.get(2).getKey();
+
+            // Nesiller arası çiftleştirme
+            char[][] nextGeneration = new char[populationSize][geneLength];
+            for (int i = 0; i < populationSize; i++) {
+                nextGeneration[i] = mating(parent1, parent2, parent3);
+            }
+
+            // Yeni neslin gösterilmesi
+            for (int i = 0; i < populationSize; i++) {
+                System.out.println("Child " + (i + 1) + ": " + Arrays.toString(nextGeneration[i]));
+            }
+
+            // Yeni neslin eski nesil olması için güncellenmesi
+            currentGeneration = nextGeneration;
+            generationCount++;
+
+        } while (!(healthMeter(currentGeneration[0]) == geneLength && currentGeneration[0][0] == 'K'
+                && currentGeneration[0][1] == 'a' && currentGeneration[0][2] == 'l' && currentGeneration[0][3] == 'e'
+                && currentGeneration[0][4] == 'm'));
+    }
+}
