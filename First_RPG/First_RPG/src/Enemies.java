@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class Enemies extends Character{
-    public static Random rn=new Random();
-    public static Character Guard; 
+    public static Random rn=new Random(); 
+    
     public static items WeaponGenerator()
     {
         int a=rn.nextInt(4);  //Silah sayısını belirten numeric.
@@ -13,6 +13,7 @@ public class Enemies extends Character{
         arr[3]=new items.wand();
         return arr[a];
     }
+    
     public static Character EnemyGenerator()
     {
         int a=rn.nextInt(5);  //Silah sayısını belirten numeric.
@@ -24,12 +25,14 @@ public class Enemies extends Character{
         arr[4]=new Enemies.wolf();
         return arr[a];
     }
+
     public static class bandit extends Character 
     {
         bandit()
         {
             this.weapone= WeaponGenerator();
             this.type = "Bandit";
+            this.CharName=type;
             this.attack = weapone.dmg;
             this.health = 40;
             this.defense = 30;
@@ -44,12 +47,14 @@ public class Enemies extends Character{
             + "\nMana: " + mana + "\tStamina: " + stamina  + "\nAttack: " + attack  + "\n" ;
         }
     }
+    
     public static class witch extends Character 
     {
     witch()
     {
         this.weapone=new items.wand();
         this.type="Witch";
+        this.CharName=type;
         this.attack=weapone.dmg;
         this.defense=0;
         this.health=50;
@@ -60,10 +65,11 @@ public class Enemies extends Character{
     @Override
     public String toString()
     {
-        return "\t\tName: "+ type + "\n****************************"+"\nHealth: " + health + "\tDefense: " + defense
+        return "\tName: "+ type + "\n****************************"+"\nHealth: " + health + "\tDefense: " + defense
             + "\nMana: " + mana + "\tStamina: " + stamina  + "\nAttack: " + attack  + "\n" ;
     }
     }
+    
     public static class slime extends Character 
     {
         slime()
@@ -73,6 +79,7 @@ public class Enemies extends Character{
             this.health=30;
             this.mana=0;
             this.type="Slime";
+            this.CharName=type;
             this.stamina=30;
             this.award=new items.gel();
         }
@@ -84,6 +91,7 @@ public class Enemies extends Character{
     }
         
     }
+    
     public static class goblin extends Character
     {
         goblin()
@@ -94,7 +102,9 @@ public class Enemies extends Character{
             this.health=30;
             this.mana=30;
             this.type="Goblin";
+            this.CharName=type;
             this.stamina=30;
+            this.mana=30;
             this.award=new items.brokenSpear();
         }
         @Override
@@ -104,6 +114,7 @@ public class Enemies extends Character{
             + "\nMana: " + mana + "\tStamina: " + stamina  + "\nAttack: " + attack  + "\n" ;
         }
     }
+    
     public static class wolf extends Character {
         wolf()
         {
@@ -111,7 +122,8 @@ public class Enemies extends Character{
             this.defense=10;
             this.health=25;
             this.type="Wolf";
-            this.stamina=35;
+            this.CharName=type;
+            this.stamina=50;
             this.mana=0;
             this.award=new items.fur();
         }
@@ -123,12 +135,14 @@ public class Enemies extends Character{
         }
         
     }
+    
     public static class Guard extends Character 
     {
         Guard()
         {
             this.weapone= WeaponGenerator();
             this.type = "Guard";
+            this.CharName=type;
             this.attack = weapone.dmg*1.5;
             this.health = 100;
             this.defense = 30;
@@ -143,6 +157,38 @@ public class Enemies extends Character{
             + "\nMana: " + mana + "\tStamina: " + stamina  + "\nAttack: " + attack  + "\n" ;
         }
     }
-}
+
 ///////////        BOSESSSSS         ///////////
 //Trimo Extra goblin chief
+//////////                          ///////////
+
+
+
+public static class Merchant extends Character
+{
+    Merchant()
+    {
+        this.coins=0;
+        this.weapone = new items.ironSword();
+        this.type = "Merchant";
+        this.attack=weapone.dmg;
+        this.health = 20;
+        this.original_health=20;
+        this.defense = 50;
+        this.mana=30;
+        this.stamina=50;
+        this.original_stamina=50;
+        this.Religion=null;
+        for(int i=0;i<20;i++)
+        {
+            this.inventory[i]=new items.regenpotion();
+        }
+    }
+    @Override
+    public String toString()
+    {
+    return "\tClass: " + type + "\n****************************\n\tHealth: " + health + "\nDefense: " + defense
+            + "\tMana: " + mana + "\nStamina: " + stamina+ "\tYourReligion: " + Religion + "\nWeapone: " + weapone  + "\n" ;
+    }
+}
+}

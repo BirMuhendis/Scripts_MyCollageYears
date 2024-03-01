@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Domains {
+public class Domains  {
     String name;
     int level;
     items awards;

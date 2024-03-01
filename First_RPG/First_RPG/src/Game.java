@@ -26,6 +26,7 @@ public class Game {
                     hero = new Character.Warrior();
                     hero.CharName=charname;
                     weapon = new items.ironSword();
+                    Character.ReligionBuffer(hero);
                     flag++;
                     break;
 
@@ -33,6 +34,7 @@ public class Game {
                     hero = new Character.Archer();
                     hero.CharName=charname;
                     weapon = new items.bow();
+                    Character.ReligionBuffer(hero);
                     flag++;
                     break;
 
@@ -40,6 +42,7 @@ public class Game {
                     hero = new Character.Wizard();
                     hero.CharName=charname;
                     weapon = new items.wand();
+                    Character.ReligionBuffer(hero);
                     flag++;
                     break;
 
@@ -47,66 +50,76 @@ public class Game {
                     hero = new Character.Samurai();
                     hero.CharName=charname;
                     weapon = new items.Katana();
+                    Character.ReligionBuffer(hero);
                     flag++;
                     break;
             }
         } while (flag == 0);
         return hero;
     }
+    public static ArrayList<Character> createEnemies(ArrayList<Character> enemies,int enemyCount,String enemytype)
+    {
+        for(int i = 0; i < enemyCount; i++)
+        {
+            Character enemy;
+            
+            if(enemytype=="goblin")
+            {
+                enemy= new Enemies.goblin();
+                enemies.add( (Character) enemy);
+            }  
+            if(enemytype=="bandit")
+            {
+                enemy= new Enemies.bandit();
+                enemies.add( (Character) enemy);
+            } 
+            if(enemytype=="guard")
+            {
+                enemy= new Enemies.Guard();
+                enemies.add( (Character) enemy);
+            } 
+            if(enemytype=="slime")
+            {
+                enemy= new Enemies.slime();
+                enemies.add( (Character) enemy);
+            } 
+            if(enemytype=="witch")
+            {
+                enemy= new Enemies.witch();
+                enemies.add( (Character) enemy);
+            } 
+            if(enemytype=="wolf")
+            {
+                enemy= new Enemies.wolf();
+                enemies.add( (Character) enemy);
+            } 
+            else if(enemytype=="random")
+            {
+                enemy = Enemies.EnemyGenerator();
+                enemies.add( (Character) enemy);
+            }
+        }
+        return enemies;
+    }
     public static void main(String[] args) 
     {
+        Location ruins=new Location.Ruins();   Location City=new Location.City();
+        Location Forest=new Location.Forest();  Location DForst=new Location.DeepofForest();
+                    Location RylCstl=new Location.RoyalCastle();
+        Location MAP[][]= new Location[5][5];
+        String S_MAP[][]= new String[5][5];
+        MAP[0][2]=DForst;   MAP[1][2]=Forest;        MAP[2][2]=ruins;        MAP[2][3]=City;        MAP[2][4]=RylCstl;
+        ArrayList<Character> players=new ArrayList<Character>();
+        ArrayList<Character> enemies = new ArrayList<Character>();
+        ////Yeni bir arraylist ekleyici yap ve character selctor fonksiyonu ile doğru çalışşın.
         Character hero = Characterselector();
-        Character enemy;
         System.out.println("Act 1"); System.out.println("Bilinmez Kahraman:");
-        System.out.println(" Ormandaki bir harabede uyandin. Aklinda ismin ve diyarin engin patikalari disinda hic bir bilgi bulunmamakta. \nHarabe bilmediğin bir dilin yazilariyla dolup tasiyor. En yakin sehri bulmak istiyor ve harabeden cikiyorsun. Karsina birden bir yaratik cikiyor basta anlamasanda savas esnasında ne oldugunu anliyorsun. \nİçgüdülerine güvenmek senin su anlik tek caren! ");
-        enemy=Enemies.EnemyGenerator();
-        Character.Combat(hero, enemy);
+        System.out.println(" Ormandaki bir harabede uyandin. Aklinda ismin ve diyarin engin patikalari disinda hic bir bilgi bulunmamakta. \nHarabe bilmediğin bir dilin yazilariyla dolup tasiyor. En yakin sehri bulmak istiyor ve harabeden cikiyorsun. Karsina birden bir yaratik cikiyor basta anlamasanda savas esnasinda ne oldugunu anliyorsun. \nİçgüdülerine güvenmek senin su anlik tek caren! ");
+        enemies = createEnemies(enemies,2,"random");
+        Character.Combat(hero, enemies,2);
         System.out.println();
         System.out.println("Dusman defedildikten sonra hangi yöne gitmen gerektigine karar veriyorsun.\nW-Kuzey A-Bati S-Guney D-Dogu.");
-        do
-        {
-        char wayArrows=sc.next().toLowerCase().toUpperCase().charAt(0);
-        /// go to fonksiyonu istiyoruummmmmm aaaaaaaaa aaaAAAAAAAAA
-            switch(wayArrows)
-            {
-                case 'W':
-                do{
-                System.out.println("Uzun bir yolculuk sonucu sehre vardin. Sehir devasa tas sutunlarla kendini savunmakta olup arkasinda ise devasa bir sato var. Yakindaki tuccari gordun ve yanina yaklastin.\nTuccarla konusmak icin <F>");
-                wayArrows=sc.next().toLowerCase().toUpperCase().charAt(0);
-                if(wayArrows=='F')
-                {
-                    do{
-                    System.out.println("Tuccarin yanindasin. Tuccari ciliz bir adamin korudugunu gordun <S>aldir veya <T>icaret");
-                    wayArrows=sc.next().toLowerCase().toUpperCase().charAt(0);
-                    
-                        if(wayArrows=='S')
-                        {
-                            System.out.println("Savasssss!!!!");
-                            Character enemy2=Enemies.Guard;   Character.Combat(hero, enemy2);
-                        }
-                        if(wayArrows=='T')
-                        {
-                            System.out.println("Tuccarin ekipmanlarini goruyorsun");
-                        }
-                        else System.out.println("Yanlis Tus.");
-                    }while(wayArrows!='S' && wayArrows!='S');
-                }
-                else System.out.println("Dogru bas lan.");
-                }while(wayArrows!='F');
-                break;
-
-                case 'A':
-                break;
-
-                case 'S':
-                break;
-
-                case 'D':
-                break;
-
-                default:
-                break;
-            }
-        }while(true);
+        Location.getMap(ruins);
+        Location.getLocation(S_MAP, MAP, hero, enemies);
     }
 }

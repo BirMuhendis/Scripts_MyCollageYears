@@ -1,0 +1,4 @@
+
+System.out.println("Uzun bir yolculuk sonucu sehre vardin. Sehir devasa tas sutunlarla kendini savunmakta olup arkasinda ise devasa bir sato var.
+ Yakindaki tuccari gordun ve yanina yaklastin.\nTuccarla konusmak icin <F>");
+System.out.println("Tuccarin yanindasin. Tuccari ciliz bir adamin korudugunu gordun <S>aldir veya <T>icaret");
