@@ -5,14 +5,14 @@ public class RussianRoulette {
     public static Random rn = new Random();
     public static File filedeneme = new File("C:\\Users\\ASUS\\Desktop\\deneme.txt");
 
-public static class Players extends App {
+public static class Players {
     int playerScore=0;
     String playerName;
     boolean liveorDead=true;
     @Override
         public String toString()
         {
-            String dead= "Oldu";
+            String dead= "oldu";
             String live= "Yasiyor";
             String printvalue=liveorDead ? live:dead;
             return "Player Name: " + playerName + "\n" + "Player Score: " + String.valueOf(playerScore) + "\n" + printvalue;
@@ -65,7 +65,6 @@ public static class Players extends App {
             players.playerScore+=20;
         }
         TextPrinter(players);
-        System.out.print(players);  System.out.println();
     }
  
     public static void PlayerData(Players players, int line)
@@ -100,18 +99,22 @@ public static class Players extends App {
             switch(turn){
                 case 1:
                 Shoot(a, Bullets, player1);
+                System.out.print(player1);  System.out.println();
                 break;
 
                 case 2:
                 Shoot(a, Bullets, player2);
+                System.out.print(player2);  System.out.println();
                 break;
 
                 case 3:
                 Shoot(a, Bullets, player3);
+                System.out.print(player3);  System.out.println();
                 break;
 
                 case 4:
                 Shoot(a, Bullets, player4);
+                System.out.print(player4);  System.out.println();
                 break;
 
                 default:
