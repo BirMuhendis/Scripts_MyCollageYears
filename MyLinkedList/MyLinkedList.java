@@ -93,6 +93,7 @@ public class MyLinkedList<E>
             }
             return temp;
         }
+        @SuppressWarnings("unchecked")
         public void BubbleSort()
         {
             boolean swapped;
@@ -115,6 +116,7 @@ public class MyLinkedList<E>
                 }
             }
         } 
+        @SuppressWarnings("unchecked")
         public void SelectionSort()
         {
             E min;  int minIndex;   int i;
@@ -134,14 +136,11 @@ public class MyLinkedList<E>
                 getNode(i).data=min;
             }
         }
+        @SuppressWarnings("unchecked")
         private void Merge(MyLinkedList<E> list, MyLinkedList<E> leftList, MyLinkedList<E> rightList) { 
             int i = 0, j = 0, k = 0;
-            
-            // Left ve right listelerin uzunluklarını her seferinde çağırmak yerine bir defa alıyoruz.
             int leftLength = leftList.length();
             int rightLength = rightList.length();
-            
-            // Sıralı birleştirme işlemi
             while (i < leftLength && j < rightLength) {
                 if (((Comparable<E>) leftList.getNode(i).data).compareTo(rightList.getNode(j).data) <= 0) {
                     list.getNode(k++).data = leftList.getNode(i++).data;
@@ -149,8 +148,6 @@ public class MyLinkedList<E>
                     list.getNode(k++).data = rightList.getNode(j++).data;
                 }
             }
-        
-            // Kalan öğeleri birleştir
             while (i < leftLength) {
                 list.getNode(k++).data = leftList.getNode(i++).data;
             }
