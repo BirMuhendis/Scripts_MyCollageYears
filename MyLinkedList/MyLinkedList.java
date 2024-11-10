@@ -1,122 +1,179 @@
-package MyLinkedList;
-public class MyLinkedList<E> {
-    Node<E> head = null;
-    Node<E> tail = null;
-
-    public void Add(E data,int index)
-    {
-        Node<E> newNode = new Node<E>(data);
-        Node<E> temp = head;
-        if(head==null)
+public class MyLinkedList<E> 
+{
+        Node<E> head=null;
+        Node<E> tail=null;
+        public void add(E data)
         {
-            head=newNode;
-            tail=newNode;
+            Node <E> newNode= new Node<E>(data);
+            if (head==null) 
+            {
+                head=newNode;
+                tail=newNode;
+            }
+            else
+            {
+                tail.next=newNode;
+                tail=newNode;
+            }
+    
         }
-        else
+        public void removeLast()
         {
-            for(int i=0 ; i<index-1 ; i++)
+            Node<E> temp = head;
+            if (head==null) 
+            {
+                System.out.println("List is Empty!");
+            }
+            else 
+            {
+                while (temp.next.next!=null) 
+                {
+                    temp=temp.next;
+                }
+                temp.next=null;
+                tail = temp;
+            }
+        }
+        public void removeFirst()
+        {
+            head=head.next;
+        }
+        public int length()
+        {   
+            int counter = 0;
+            if (head==null) 
+            {
+                return counter;
+            } 
+            else 
+            {
+            Node<E> temp = head;
+            while (temp!=null) 
+            {
+                counter++;
+                temp = temp.next;
+            }
+            return counter;
+            }
+        }
+        public void removeAtIndex(int index) 
+        {
+            if (index < 0 || index >= length()) 
+            {
+                System.out.println("This index cannot be!");
+                return;
+            }
+            
+            if (index == 0) 
+            {
+                removeFirst();
+                return;
+            }
+            
+            if (index == length() - 1) 
+            {
+                removeLast();
+                return;
+            }
+        
+            Node<E> temp = head;
+            for (int i = 1; i < index; i++) 
+            {
+                temp = temp.next;
+            }
+            System.out.println(temp.next.data + "/*/*/*/*");
+            temp.next = temp.next.next;
+        }
+        public Node<E> getNode(int index)
+        {
+            Node<E> temp = head;
+            for (int i = 0; i < index; i++) 
             {
                 temp=temp.next;
             }
-            newNode.next=temp.next;
-            temp.next=newNode;
+            return temp;
         }
-    }
-    public void AddFirst(E data)
-    {
-        Node<E> newNode = new Node<E>(data);
-        if(head==null)
+        public void BubbleSort()
         {
-            head = newNode;
-            tail = newNode;
-        }
-        else
-        {
-            newNode.next = head;
-            head=newNode;
-        }
-    }
-    public void Add(E data)
-    {
-        Node<E> newNode = new Node<E>(data);
-        if(head==null)
-        {
-            head=newNode;
-            tail=newNode;
-        }
-        else
-        {
-            tail.next = newNode; 
-            tail = newNode;
-        }
-    }
-    public void Set(E data , int index)
-    {
-        Node<E> temp = head;
-        Node<E> newNode = new Node<E>(data);
-        if (index < 0) System.out.println("Index cannot be negative.");
-        if (index==0)
-        {
-            newNode.next = temp;
-            head = newNode;
-            if (tail==null) tail = newNode;
-            return;
-        }
-            for (int i=0; i<index-1 ; i++)
+            boolean swapped;
+            for (int i = 0; i < length() - 1; i++) 
             {
-                if(temp==null) System.out.println("Index exceeds list size!");
-                temp=temp.next;
+                swapped = false;
+                for (int j = 0; j < length() - 1 - i; j++) 
+                {
+                    if (((Comparable<E>) getNode(j).data).compareTo(getNode(j + 1).data) > 0) 
+                    {
+                        E temp = getNode(j).data;
+                        getNode(j).data = getNode(j + 1).data;
+                        getNode(j + 1).data = temp;
+                        swapped = true;
+                    } 
+                }
+                if (!swapped) 
+                {
+                    break;
+                }
             }
-            newNode.next=temp.next;
-            temp.next=newNode;
-        if (newNode.next==null) tail=newNode;
-    }
-    public int SizeList()
-    {
-        int counter=0;
-        Node<E> temp = head;
-        while(temp!=null)
+        } 
+        public void SelectionSort()
         {
-            counter++;
-            temp=temp.next;
-        }
-        return counter;
-    }
-    public void PrintList()
-    {
-        Node<E> temp = head;
-        if(head==null)  System.out.print("The list is empty!");
-        else
-        {
-            System.out.print("\n Start -> ");
-            while(temp != null)
+            E min;  int minIndex;   int i;
+            for ( i = 0 ; i < length() ; i++) 
             {
-                System.out.print(temp.data + " -> ");
-                temp=temp.next;
+                min = getNode(i).data;
+                minIndex = i ;
+                for (int j = i+1; j < length() ; j++)
+                {
+                    if (((Comparable<E>)getNode(j).data).compareTo(min) < 0) 
+                    {
+                        min= getNode(j).data;
+                        minIndex=j;
+                    }
+                }
+                getNode(minIndex).data=getNode(i).data;
+                getNode(i).data=min;
             }
-            System.out.print("End\n");
         }
-    }
-    public void ClearList()
-    {
-        head=null;  tail=null;
-    }
-    public void RemoveLast()
-    {
-        Node<E> temp = head;
-        while (temp.next.next!=null) {
-            temp=temp.next;
+        private void Merge(MyLinkedList<E> list, MyLinkedList<E> leftList, MyLinkedList<E> rightList) { 
+            int i = 0, j = 0, k = 0;
+            
+            // Left ve right listelerin uzunluklarını her seferinde çağırmak yerine bir defa alıyoruz.
+            int leftLength = leftList.length();
+            int rightLength = rightList.length();
+            
+            // Sıralı birleştirme işlemi
+            while (i < leftLength && j < rightLength) {
+                if (((Comparable<E>) leftList.getNode(i).data).compareTo(rightList.getNode(j).data) <= 0) {
+                    list.getNode(k++).data = leftList.getNode(i++).data;
+                } else {
+                    list.getNode(k++).data = rightList.getNode(j++).data;
+                }
+            }
+        
+            // Kalan öğeleri birleştir
+            while (i < leftLength) {
+                list.getNode(k++).data = leftList.getNode(i++).data;
+            }
+            while (j < rightLength) {
+                list.getNode(k++).data = rightList.getNode(j++).data;
+            }
         }
-        temp.next=null;
-        temp=tail;
-
-        System.out.println("secili temp değeri :" + temp.data);
-    }
-    public void RemoveFirst()
-    {
-        head=head.next;
-    }
-    public void RemoveSpecific(E data)
+        public void MergeSort(MyLinkedList<E> list) {
+            if (list.length() <= 1) return;
+            int mid = list.length() / 2;
+            MyLinkedList<E> leftList = new MyLinkedList<>();
+            MyLinkedList<E> rightList = new MyLinkedList<>();
+            for (int i = 0; i < mid; i++) {
+                leftList.add(list.getNode(i).data);
+            }
+            for (int i = mid; i < list.length(); i++) {
+                rightList.add(list.getNode(i).data);
+            }
+            MergeSort(leftList);
+            MergeSort(rightList);
+            Merge(list, leftList, rightList);
+        }
+        public void RemoveSpecific(E data)
     {
         Node<E> temp= head;
         while (temp!=null) 
@@ -132,58 +189,52 @@ public class MyLinkedList<E> {
             }    
         }
     }
-    public Node<E> GetLast()
-    {
-        return tail;
-    }
-    public Node<E> GetFirst()
-    {
-        return head;
-    }
-    public Node<E> Get(int index)
-    {
-        Node<E> temp=null;
-        if(index<0) 
+        public void printlist()
         {
-            System.out.println("This cannot be!");
-        }
-        else if(index>SizeList()) 
-        {
-            throw new NullPointerException ("This index exceeds of the list! @ Main:18");
-        }
-        else
-        {
-            temp=head;
-            for(int i=0 ; i<index-1 ; i++)
+            if (head==null) System.out.println("List is Empty!");
+            else
             {
-                temp=temp.next;
+                Node<E> temp = head;
+                System.out.print("Start -> ");
+                while (temp!=null) 
+                {
+                    System.out.print(temp.data+" -> ");
+                    temp=temp.next;
+                }
+                System.out.println("End");
+            }
+    }
+
+    public void Add(E data, int index) 
+    {
+        Node<E> newNode = new Node<E>(data);
+        if (head == null) 
+        {
+            head = newNode;
+            tail = newNode;
+        } else if (index == 0) 
+        {
+            newNode.next = head;
+            head = newNode;
+        } 
+        else 
+        {
+            Node<E> temp = head;
+            for (int i = 0; i < index - 1; i++) 
+            {
+                if (temp == null) 
+                {
+                    throw new IndexOutOfBoundsException("Index is out of bounds");
+                }
+                temp = temp.next;
+            }
+            if (temp.next == null) {
+                temp.next = newNode;
+                tail = newNode; 
+            } else {
+                newNode.next = temp.next;
+                temp.next = newNode;
             }
         }
-        
-        return temp ;
-    }
-    public void RemoveToIndex(int index) 
-    {
-        if (index < 0 || index >= SizeList()) 
-        {
-            System.out.println("This index cannot be!");
-            return;
-        }
-        
-        if (index == 0) 
-        {
-            RemoveFirst();
-            return;
-        }
-        if (index==SizeList()-1) 
-        {
-            RemoveLast();
-        }
-        Node<E> temp = head;
-        for (int i = 0 ; i < index ; i++) 
-        {
-            temp = temp.next;
-        }
-            temp.next = temp.next.next;
     }
 }
