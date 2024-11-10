@@ -170,19 +170,20 @@ public class MyLinkedList<E> {
             return;
         }
         
-        if (index == 0) {
+        if (index == 0) 
+        {
             RemoveFirst();
             return;
         }
-    
+        if (index==SizeList()-1) 
+        {
+            RemoveLast();
+        }
         Node<E> temp = head;
-        for (int i = 0; i < index - 1; i++) 
+        for (int i = 0 ; i < index ; i++) 
         {
             temp = temp.next;
         }
-        if (temp.next != null) 
-        {
             temp.next = temp.next.next;
-        }
     }
 }
